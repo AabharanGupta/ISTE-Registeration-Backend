@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://iste-registeration-backend.vercel.app');
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
     // Add other CORS headers as needed
     next();
   });
