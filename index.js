@@ -8,16 +8,22 @@ const app = express();
 app.use(express.json());
 
 app.use((_req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Allow-Methods', '*');
-  
+    res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
+    res.header('Access-Control-Allow-Headers', '*'); // Allow any headers in the request
+    res.header('Access-Control-Allow-Methods', '*'); // Allow any HTTP methods
     next();
-  }),
-app.use(cors({
-    origin:"https://colloquium10.vercel.app/",
-    credentials:true,
-}));
+  });
+  
+  // Use cors middleware
+  app.use(cors({
+    origin: '*',
+    credentials: true
+  }));
+  
+  // Route to handle preflight requests
+  app.options('*', (req, res) => {
+    res.sendStatus(200); // Respond with a 200 OK status for OPTIONS requests
+  });
 
 app.options('*', cors());
 
