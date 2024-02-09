@@ -7,12 +7,10 @@ import cors from 'cors';
 const app = express();
 app.use(express.json());
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://iste-registeration-backend.vercel.app');
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-    // Add other CORS headers as needed
-    next();
-  });
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',
+    allowedHeaders: ['Content-Type'] // Add 'Content-Type' to the allowed headers
+  }));
 
 dotenv.config({
     path: './.env',
@@ -20,6 +18,15 @@ dotenv.config({
 const port = 3000;
 
 app.use('/register', registerRoute);
+
+app.use('/', (req,res)=>
+{
+    res.json(
+        {
+            status : "Server is up"
+        }
+    )
+});
 
 connectDB().then(() => {
     app.listen(port, () => {
