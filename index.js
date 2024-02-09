@@ -18,6 +18,8 @@ app.use((_req,res,next)=>{
     credentials:true
   }))
 
+app.options('*', cors());
+
 dotenv.config({
     path: './.env',
 });
