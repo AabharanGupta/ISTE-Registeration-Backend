@@ -7,6 +7,8 @@ import cors from 'cors';
 const app = express();
 app.use(express.json());
 
+const port = process.env.port||4000;
+
 app.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
     res.header('Access-Control-Allow-Headers', '*'); // Allow any headers in the request
@@ -30,7 +32,6 @@ app.options('*', cors());
 dotenv.config({
     path: './.env',
 });
-const port = 3000;
 
 app.use('/register', registerRoute);
 
